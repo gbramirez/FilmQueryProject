@@ -8,10 +8,10 @@ The app will display the film the user is searching for and all of the films inf
 
 ### Technologies Used
 
--Database Accessors
--Java
--SQL
--Try Catch statements
+* Database Accessors
+* Java
+* SQL
+* Try Catch statements
 
 ### How to Run
 
