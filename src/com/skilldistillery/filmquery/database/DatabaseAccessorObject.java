@@ -8,7 +8,9 @@ import com.skilldistillery.filmquery.entities.Film;
 
 public class DatabaseAccessorObject implements DatabaseAccessor {
 
-	private static final String URL = "jdbc:mysql://localhost/sdvid?useSSL=false";
+	  private static String URL = "jdbc:mysql://localhost:3306/stockdb?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=US/Mountain";
+
+	
 	private static final String USER = "student";
 	private static final String PASSWORD = "student";
 
@@ -52,7 +54,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public Actor findActorById(int actorId) {
 		Actor actor = null;
 
-		try (Connection connection = DriverManager.getConnection(URL, USER, PASS);) {
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);) {
 			String sql = "SELECT id, first_name, last_name " + "FROM actor " + "WHERE id = ? ";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, actorId);
@@ -73,7 +75,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public List<Film> findFilmByUserKeyword(String userKeyword) {
 		List<Film> films = new ArrayList<>();
 
-		try (Connection connection = DriverManager.getConnection(URL, USER, PASS);) {
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);) {
 			String sql = "SELECT film.id, film.title, film.description, film.release_year, lang.name,"
 					+ "film.rental_duration, film.length, film.rental_rate, film.replacement_cost,"
 					+ "film.rating, film.special_features " + "FROM film JOIN language lang "
@@ -113,7 +115,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		List<Actor> actors = new ArrayList<>();
 		Actor actor = null;
 
-		try (Connection connection = DriverManager.getConnection(URL, USER, PASS);) {
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);) {
 			String sql = "SELECT actor.id, actor.first_name, actor.last_name " + "FROM actor "
 					+ "JOIN film_actor ON actor.id = film_actor.actor_id "
 					+ "JOIN film ON film_actor.film_id = film.id " + "WHERE film.id = ? ";
